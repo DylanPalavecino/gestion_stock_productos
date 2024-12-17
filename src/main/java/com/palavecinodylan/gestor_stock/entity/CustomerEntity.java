@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "customer")
+@Table(name = "clientes")
 public class CustomerEntity {
 
     @Id
@@ -24,6 +24,8 @@ public class CustomerEntity {
 
     @OneToMany(targetEntity = OrderEntity.class, fetch = FetchType.LAZY, mappedBy = "customer")
     private List<OrderEntity> orderHistory;
+
+
 
     public Long getId() {
         return id;

@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "order")
+@Table(name = "pedidos")
 public class OrderEntity {
 
     @Id
@@ -31,4 +31,6 @@ public class OrderEntity {
 
     @ManyToMany(targetEntity = ProductEntity.class, fetch = FetchType.LAZY)
     private List<ProductEntity> products;
+
+
 }

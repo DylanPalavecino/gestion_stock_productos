@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "product")
+@Table(name = "productos")
 public class ProductEntity {
 
     @Id
@@ -24,8 +24,19 @@ public class ProductEntity {
     private Integer quantity;
     private String description;
 
-    @ManyToMany(targetEntity = ProductEntity.class, fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = OrderEntity.class, fetch = FetchType.LAZY)
     private List<OrderEntity> orders;
+
+    @ManyToOne(targetEntity = CategoryEntity.class)
+    private CategoryEntity category;
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;

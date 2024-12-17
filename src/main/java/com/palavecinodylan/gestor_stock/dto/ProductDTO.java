@@ -1,5 +1,6 @@
 package com.palavecinodylan.gestor_stock.dto;
 
+import com.palavecinodylan.gestor_stock.entity.CategoryEntity;
 import com.palavecinodylan.gestor_stock.entity.OrderEntity;
 import com.palavecinodylan.gestor_stock.entity.ProductEntity;
 import jakarta.persistence.*;
@@ -15,6 +16,15 @@ public class ProductDTO {
     private String description;
     private Double price;
     private Integer quantity;
+    private CategoryEntity category;
+
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
+    }
 
     public Long getId() {
         return id;
