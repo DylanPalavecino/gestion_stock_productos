@@ -3,24 +3,24 @@ package com.palavecinodylan.gestor_stock.service.impl;
 import com.palavecinodylan.gestor_stock.dto.ProductDTO;
 import com.palavecinodylan.gestor_stock.entity.ProductEntity;
 import com.palavecinodylan.gestor_stock.mapper.ProductEntityToDTO;
-import com.palavecinodylan.gestor_stock.mapper.ProductRequestToEntity;
 import com.palavecinodylan.gestor_stock.repository.ProductRepository;
-import com.palavecinodylan.gestor_stock.request.ProductRequest;
 import com.palavecinodylan.gestor_stock.service.ProductService;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductEntityToDTO productEntityToDTO;
-    private final ProductRequestToEntity productRequestToEntity;
+
+    public ProductServiceImpl(ProductRepository productRepository, ProductEntityToDTO productEntityToDTO) {
+        this.productRepository = productRepository;
+        this.productEntityToDTO = productEntityToDTO;
+    }
 
     @Override
     public List<ProductDTO> getAllProducts() {
@@ -37,20 +37,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO addProduct(ProductRequest productRequest) {
+    public ProductDTO addProduct(ProductDTO dto) {
 
-        ProductEntity product = productRepository.save(productRequestToEntity.map(productRequest));
+        return null;
+
+
+    }
+
+    @Override
+    public ProductDTO updateProduct(ProductDTO dto, Long id) {
+
+        ProductEntity product = productRepository.findById(id).orElse(null);
+        product.setName(dto.getName());
+        product.setDescription(dto.getDescription());
+        product.setPrice(dto.getPrice());
+        product.setQuantity(dto.getQuantity());
+        productRepository.save(product);
         return productEntityToDTO.map(product);
 
     }
 
     @Override
-    public ProductDTO updateProduct(ProductRequest productRequest, Long id) {
-        return null;
-    }
-
-    @Override
     public void deleteProduct(Long id) {
-
+        productRepository.deleteById(id);
     }
 }
