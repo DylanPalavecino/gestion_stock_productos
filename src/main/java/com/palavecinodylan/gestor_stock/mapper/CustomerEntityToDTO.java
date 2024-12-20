@@ -12,11 +12,6 @@ public class CustomerEntityToDTO implements IMapper<CustomerEntity, CustomerDTO>
     public CustomerDTO map(CustomerEntity input) {
 
         CustomerDTO dto = new CustomerDTO();
-        dto.setFullName(input.getFullName());
-        dto.setDni(input.getDni());
-        dto.setEmail(input.getEmail());
-        dto.setPhone(input.getPhone());
-
         return dto;
 
     }

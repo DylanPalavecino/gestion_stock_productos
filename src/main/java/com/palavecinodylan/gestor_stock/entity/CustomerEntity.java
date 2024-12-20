@@ -6,6 +6,7 @@ import lombok.*;
 
 import java.util.List;
 
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -17,15 +18,15 @@ public class CustomerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JoinColumn(nullable = false)
     private String fullName;
     private String dni;
     private String email;
     private String phone;
 
-    @OneToMany(targetEntity = OrderEntity.class, fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(targetEntity = OrderEntity.class, fetch = FetchType.LAZY, mappedBy = "customer", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<OrderEntity> orderHistory;
-
-
 
     public Long getId() {
         return id;

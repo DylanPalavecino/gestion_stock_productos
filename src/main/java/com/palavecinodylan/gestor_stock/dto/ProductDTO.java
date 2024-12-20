@@ -1,9 +1,7 @@
 package com.palavecinodylan.gestor_stock.dto;
 
-import com.palavecinodylan.gestor_stock.entity.CategoryEntity;
-import com.palavecinodylan.gestor_stock.entity.OrderEntity;
-import com.palavecinodylan.gestor_stock.entity.ProductEntity;
-import jakarta.persistence.*;
+import com.palavecinodylan.gestor_stock.entity.OrderItemEntity;
+import com.palavecinodylan.gestor_stock.models.Category;
 import lombok.Data;
 
 import java.util.List;
@@ -13,18 +11,9 @@ public class ProductDTO {
 
     private Long id;
     private String name;
-    private String description;
     private Double price;
-    private Integer quantity;
-    private CategoryEntity category;
-
-    public CategoryEntity getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
-    }
+    private Integer stock;
+    private Category category;
 
     public Long getId() {
         return id;
@@ -42,14 +31,6 @@ public class ProductDTO {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public Double getPrice() {
         return price;
     }
@@ -58,11 +39,19 @@ public class ProductDTO {
         this.price = price;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

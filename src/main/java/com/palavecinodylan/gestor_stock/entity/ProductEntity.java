@@ -1,5 +1,6 @@
 package com.palavecinodylan.gestor_stock.entity;
 
+import com.palavecinodylan.gestor_stock.models.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,22 +22,12 @@ public class ProductEntity {
     private Long id;
     private String name;
     private Double price;
-    private Integer quantity;
-    private String description;
+    private Integer stock;
+    private Category category;
 
-    @ManyToMany(targetEntity = OrderEntity.class, fetch = FetchType.LAZY)
-    private List<OrderEntity> orders;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItemEntity> orderItem;
 
-    @ManyToOne(targetEntity = CategoryEntity.class)
-    private CategoryEntity category;
-
-    public CategoryEntity getCategory() {
-        return category;
-    }
-
-    public void setCategory(CategoryEntity category) {
-        this.category = category;
-    }
 
     public Long getId() {
         return id;
@@ -62,27 +53,27 @@ public class ProductEntity {
         this.price = price;
     }
 
-    public Integer getQuantity() {
-        return quantity;
+    public Integer getStock() {
+        return stock;
     }
 
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
-    public String getDescription() {
-        return description;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
-    public List<OrderEntity> getOrders() {
-        return orders;
+    public List<OrderItemEntity> getOrderItem() {
+        return orderItem;
     }
 
-    public void setOrders(List<OrderEntity> orders) {
-        this.orders = orders;
+    public void setOrderItem(List<OrderItemEntity> orderItem) {
+        this.orderItem = orderItem;
     }
 }

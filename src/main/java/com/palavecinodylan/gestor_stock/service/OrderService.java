@@ -1,8 +1,7 @@
 package com.palavecinodylan.gestor_stock.service;
 
 import com.palavecinodylan.gestor_stock.dto.OrderDTO;
-import com.palavecinodylan.gestor_stock.dto.ProductDTO;
-
+import com.palavecinodylan.gestor_stock.entity.OrderEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,15 +9,13 @@ import java.util.List;
 @Service
 public interface OrderService {
 
-    public OrderDTO getOrder(Long id);
-    public OrderDTO generateOrder(OrderDTO dto);
-
-    //Traer todos los pedidos del cliente
-    public List<OrderDTO> getAllCustomerOrders(Long customerId);
-
-    //Traer los productos que estan en el pedido
-    public List<ProductDTO> getAllProductsInOrder(Long orderId);
+    public OrderDTO newEmptyOrder(OrderDTO orderDTO);
+    public OrderDTO getOrderById(Long id) throws Exception;
+    public OrderEntity getOrderEntityById(Long id) throws Exception;
+    public String addItemToOrder(Long orderId, Long itemId) throws Exception;
 
 
 
-}
+    }
+
+

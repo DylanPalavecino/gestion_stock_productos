@@ -5,26 +5,21 @@ import com.palavecinodylan.gestor_stock.entity.ProductEntity;
 import com.palavecinodylan.gestor_stock.mapper.ProductEntityToDTO;
 import com.palavecinodylan.gestor_stock.repository.ProductRepository;
 import com.palavecinodylan.gestor_stock.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final ProductEntityToDTO productEntityToDTO;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductEntityToDTO productEntityToDTO) {
-        this.productRepository = productRepository;
-        this.productEntityToDTO = productEntityToDTO;
-    }
-
     @Override
     public List<ProductDTO> getAllProducts() {
-
         List<ProductEntity> products = productRepository.findAll();
         return products.stream().map(productEntityToDTO::map).collect(Collectors.toList());
 
@@ -39,8 +34,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO addProduct(ProductDTO dto) {
 
-        return null;
+        ProductEntity product = new ProductEntity();
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setStock(dto.getStock());
+        product.setCategory(dto.getCategory());
 
+        return productEntityToDTO.map(productRepository.save(product));
 
     }
 
@@ -49,11 +49,11 @@ public class ProductServiceImpl implements ProductService {
 
         ProductEntity product = productRepository.findById(id).orElse(null);
         product.setName(dto.getName());
-        product.setDescription(dto.getDescription());
         product.setPrice(dto.getPrice());
-        product.setQuantity(dto.getQuantity());
-        productRepository.save(product);
-        return productEntityToDTO.map(product);
+        product.setStock(dto.getStock());
+        product.setCategory(dto.getCategory());
+
+        return productEntityToDTO.map(productRepository.save(product));
 
     }
 
@@ -61,4 +61,10 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
+
+    @Override
+    public ProductEntity getProductEntityById(Long id) {
+        return productRepository.findById(id).orElse(null);
+    }
+
 }

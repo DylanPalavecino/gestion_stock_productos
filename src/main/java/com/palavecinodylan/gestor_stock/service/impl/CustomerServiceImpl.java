@@ -12,23 +12,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@RequiredArgsConstructor
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;
     private final CustomerEntityToDTO customerEntityToDTO;
 
-    public CustomerServiceImpl(CustomerRepository customerRepository, CustomerEntityToDTO customerEntityToDTO) {
-        this.customerRepository = customerRepository;
-        this.customerEntityToDTO = customerEntityToDTO;
-    }
 
     @Override
     public CustomerDTO createCustomer(CustomerDTO dto) {
+        CustomerEntity customerEntity = new CustomerEntity();
+        customerEntity.setFullName(dto.getFullName());
+        customerEntity.setDni(dto.getDni());
+        customerEntity.setPhone(dto.getPhone());
+        customerEntity.setEmail(dto.getEmail());
 
-        return null;
-
+        return customerEntityToDTO.map(customerRepository.save(customerEntity));
     }
 
     @Override

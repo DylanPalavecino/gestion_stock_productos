@@ -2,10 +2,28 @@ package com.palavecinodylan.gestor_stock.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class CustomerDTO {
 
     private Long id;
+    private String fullName;
+    private String dni;
+    private String email;
+    private String phone;
+    private List<OrderDTO> orders;
+
+
+
+
+    public List<OrderDTO> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderDTO> orders) {
+        this.orders = orders;
+    }
 
     public Long getId() {
         return id;
@@ -47,9 +65,5 @@ public class CustomerDTO {
         this.phone = phone;
     }
 
-    private String fullName;
-    private String dni;
-    private String email;
-    private String phone;
 
 }
