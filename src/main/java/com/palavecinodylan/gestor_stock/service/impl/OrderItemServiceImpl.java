@@ -7,9 +7,11 @@ import com.palavecinodylan.gestor_stock.entity.OrderItemEntity;
 import com.palavecinodylan.gestor_stock.entity.ProductEntity;
 import com.palavecinodylan.gestor_stock.mapper.OrderItemEntityToDTO;
 import com.palavecinodylan.gestor_stock.repository.OrderItemRepository;
+import com.palavecinodylan.gestor_stock.repository.OrderRepository;
 import com.palavecinodylan.gestor_stock.service.OrderItemService;
 import com.palavecinodylan.gestor_stock.service.OrderService;
 import com.palavecinodylan.gestor_stock.service.ProductService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,35 +23,35 @@ public class OrderItemServiceImpl implements OrderItemService {
     private final OrderItemRepository orderItemRepository;
     private final ProductService productService;
     private final OrderService orderService;
+    private final OrderRepository orderRepository;
 
+    @Transactional
     @Override
-    public OrderItemDTO addItem(OrderItemRequest orderItemRequest) throws Exception {
-
+    public OrderItemDTO newItem(OrderItemRequest orderItemRequest) throws Exception {
 
         ProductEntity product = productService.getProductEntityById(orderItemRequest.productId());
-
+        OrderEntity order = orderService.getOrderEntityById(orderItemRequest.orderId());
         Double subtotal = product.getPrice() * orderItemRequest.quantity();
 
         OrderItemEntity orderItem = OrderItemEntity.builder()
                 .quantity(orderItemRequest.quantity())
-                .order(orderService.getOrderEntityById(orderItemRequest.orderId()))
+                .order(order)
                 .product(product)
                 .subTotal(subtotal)
                 .build();
 
-        return orderItemEntityToDTO.map(orderItemRepository.save(orderItem));
+        order.getOrderItems().add(orderItem);
+        order.setTotalPrice(order.getTotalPrice() + subtotal);
+        orderRepository.save(order);
+        return orderItemEntityToDTO.map(orderItem);
 
     }
 
     @Override
     public OrderItemEntity getItemEntity(Long id) throws Exception {
-
-        OrderItemEntity orderItem = orderItemRepository.findById(id).orElse(null);
-
-        return orderItem;
-
-
+        return null;
     }
+
 
 }
 

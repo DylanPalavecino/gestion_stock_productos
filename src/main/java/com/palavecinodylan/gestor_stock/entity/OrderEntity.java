@@ -20,41 +20,11 @@ public class OrderEntity {
     private Long id;
     private Double totalPrice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private InvoiceEntity invoice;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL , orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OrderItemEntity> orderItems;
 
-    @ManyToOne(targetEntity = CustomerEntity.class)
-    private CustomerEntity customer;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public List<OrderItemEntity> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(List<OrderItemEntity> orderItems) {
-        this.orderItems = orderItems;
-    }
-
-    public CustomerEntity getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerEntity customer) {
-        this.customer = customer;
-    }
 }

@@ -24,11 +24,13 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO createCustomer(CustomerDTO dto) {
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setFullName(dto.getFullName());
+        customerEntity.setInvoices(dto.getInvoices());
         customerEntity.setDni(dto.getDni());
         customerEntity.setPhone(dto.getPhone());
         customerEntity.setEmail(dto.getEmail());
 
         return customerEntityToDTO.map(customerRepository.save(customerEntity));
+
     }
 
     @Override
@@ -51,6 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerEntity customer = customerRepository.findById(customerId).orElse(null);
         customer.setFullName(dto.getFullName());
+        customer.setInvoices(dto.getInvoices());
         customer.setDni(dto.getDni());
         customer.setPhone(dto.getPhone());
         customer.setEmail(dto.getEmail());
@@ -64,5 +67,10 @@ public class CustomerServiceImpl implements CustomerService {
 
         customerRepository.deleteById(customerId);
 
+    }
+
+    @Override
+    public CustomerEntity getCustomerEntityById(Long id) {
+        return customerRepository.findById(id).orElse(null);
     }
 }

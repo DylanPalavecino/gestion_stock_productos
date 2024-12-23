@@ -1,6 +1,7 @@
 package com.palavecinodylan.gestor_stock.service;
 
 import com.palavecinodylan.gestor_stock.dto.CustomerDTO;
+import com.palavecinodylan.gestor_stock.entity.CustomerEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public interface CustomerService {
     public List<CustomerDTO> getAllCustomers();
     public CustomerDTO updateCustomer(Long customerId, CustomerDTO dto);
     public void deleteCustomer(Long customerId);
+
+    public CustomerEntity getCustomerEntityById(Long id);
 
 
 }

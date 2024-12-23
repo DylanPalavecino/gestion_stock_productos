@@ -9,6 +9,7 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
+@Table(name = "items")
 public class OrderItemEntity {
 
     @Id
@@ -21,50 +22,10 @@ public class OrderItemEntity {
 
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
     private Integer quantity;
     private Double subTotal;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public OrderEntity getOrder() {
-        return order;
-    }
-
-    public void setOrder(OrderEntity order) {
-        this.order = order;
-    }
-
-    public ProductEntity getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductEntity product) {
-        this.product = product;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Double getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(Double subTotal) {
-        this.subTotal = subTotal;
-    }
 
 
 }

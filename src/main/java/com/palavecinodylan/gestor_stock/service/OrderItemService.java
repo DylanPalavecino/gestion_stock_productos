@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface OrderItemService {
 
-    public OrderItemDTO addItem(OrderItemRequest orderItemRequest) throws Exception;
+    public OrderItemDTO newItem(OrderItemRequest orderItemRequest) throws Exception;
     public OrderItemEntity getItemEntity(Long id) throws Exception;
 
 }

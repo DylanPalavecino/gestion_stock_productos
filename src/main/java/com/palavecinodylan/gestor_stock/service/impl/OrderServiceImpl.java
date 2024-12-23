@@ -8,8 +8,10 @@ import com.palavecinodylan.gestor_stock.repository.OrderRepository;
 import com.palavecinodylan.gestor_stock.service.OrderItemService;
 import com.palavecinodylan.gestor_stock.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,49 +19,50 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    private OrderRepository orderRepository;
-    private OrderEntityToDTO orderEntityToDTO;
+    @Autowired
+    private final OrderRepository orderRepository;
+    @Autowired
+    private final OrderEntityToDTO orderEntityToDTO;
     private OrderItemService orderItemService;
 
-    public OrderServiceImpl(OrderRepository orderRepository, OrderEntityToDTO orderEntityToDTO, OrderItemService orderItemService) {
-        this.orderRepository = orderRepository;
-        this.orderEntityToDTO = orderEntityToDTO;
-        this.orderItemService = orderItemService;
-    }
-
     @Override
-    public OrderDTO newEmptyOrder(OrderDTO orderDTO) {
-
+    public String newEmptyOrder() {
         OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setOrderItems(Collections.emptyList());
-        orderEntity.setCustomer(null);
-
-        return orderEntityToDTO.map(orderRepository.save(orderEntity));
+        orderEntity.setOrderItems(new ArrayList<>());
+        orderEntity.setTotalPrice(0.0);
+        orderRepository.save(orderEntity);
+        return "New order created";
 
     }
 
     @Override
     public OrderDTO getOrderById(Long id) throws Exception {
 
-        OrderEntity order = orderRepository.findById(id).orElseThrow(()-> new Exception("oli"));
+        OrderEntity order = orderRepository.findById(id).orElseThrow(()-> new Exception("Order not found"));
         return orderEntityToDTO.map(order);
 
     }
 
     public OrderEntity getOrderEntityById(Long id) throws Exception {
 
-       OrderEntity order = orderRepository.findById(id).orElseThrow(()-> new Exception("oli"));
+       OrderEntity order = orderRepository.findById(id).orElseThrow(()-> new Exception("OrderEntity not found"));
        return order;
 
     }
 
+
     @Override
-    public String addItemToOrder(Long orderId, Long itemId) throws Exception {
+    public OrderDTO deleteItemFromOrder(Long orderId, Long itemId) throws Exception {
+
         OrderEntity order = getOrderEntityById(orderId);
         OrderItemEntity orderItem = orderItemService.getItemEntity(itemId);
 
-        order.getOrderItems().add(orderItem);
+        if (!order.getOrderItems().contains(orderItem)) {
+            throw new Exception("Item not in order");
+        }
 
-        return "Item added to order";
+        order.getOrderItems().remove(orderItem);
+        return orderEntityToDTO.map(order);
+
     }
 }
