@@ -1,0 +1,34 @@
+package com.palavecinodylan.gestor_stock.models;
+
+public enum RolePermission {
+
+    CREATE_PRODUCT,
+    UPDATE_PRODUCT,
+    READ_PRODUCT,
+    READ_ALL_PRODUCTS,
+    DELETE_PRODUCT,
+
+    CREATE_CUSTOMER,
+    READ_CUSTOMER,
+    READ_ALL_CUSTOMERS,
+    UPDATE_CUSTOMER,
+    DELETE_CUSTOMER,
+
+    CREATE_ORDER,
+    READ_ORDER,
+    READ_ALL_ORDERS,
+    UPDATE_ORDER,
+    DELETE_ORDER,
+
+    CREATE_INVOICE,
+    UPDATE_INVOICE,
+    DELETE_INVOICE,
+    READ_INVOICE,
+    READ_ALL_INVOICES;
+
+
+
+
+
+
+}
