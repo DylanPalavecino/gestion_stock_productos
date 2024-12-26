@@ -23,6 +23,7 @@ public class ProductEntity {
     private String name;
     private Double price;
     private Integer stock;
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)

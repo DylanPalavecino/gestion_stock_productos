@@ -5,6 +5,7 @@ import com.palavecinodylan.gestor_stock.dto.OrderItemDTO;
 import com.palavecinodylan.gestor_stock.entity.OrderEntity;
 import com.palavecinodylan.gestor_stock.entity.OrderItemEntity;
 import com.palavecinodylan.gestor_stock.entity.ProductEntity;
+import com.palavecinodylan.gestor_stock.exception.ObjectNotFoundException;
 import com.palavecinodylan.gestor_stock.mapper.OrderItemEntityToDTO;
 import com.palavecinodylan.gestor_stock.repository.OrderItemRepository;
 import com.palavecinodylan.gestor_stock.repository.OrderRepository;
@@ -14,6 +15,8 @@ import com.palavecinodylan.gestor_stock.service.ProductService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -49,7 +52,15 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItemEntity getItemEntity(Long id) throws Exception {
-        return null;
+        return orderItemRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("OrderItem not found"));
+    }
+
+    @Override
+    public List<OrderItemDTO> getAllItemsInOrder(Long orderId) throws Exception {
+
+        OrderEntity order = orderService.getOrderEntityById(orderId);
+        return order.getOrderItems().stream().map(orderItemEntityToDTO::map).toList();
+
     }
 
 

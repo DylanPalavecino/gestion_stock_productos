@@ -2,6 +2,7 @@ package com.palavecinodylan.gestor_stock.service.impl;
 
 import com.palavecinodylan.gestor_stock.dto.ProductDTO;
 import com.palavecinodylan.gestor_stock.entity.ProductEntity;
+import com.palavecinodylan.gestor_stock.exception.ObjectNotFoundException;
 import com.palavecinodylan.gestor_stock.mapper.ProductEntityToDTO;
 import com.palavecinodylan.gestor_stock.repository.ProductRepository;
 import com.palavecinodylan.gestor_stock.service.ProductService;
@@ -21,13 +22,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> getAllProducts() {
         List<ProductEntity> products = productRepository.findAll();
-        return products.stream().map(productEntityToDTO::map).collect(Collectors.toList());
+        return products.stream().map(productEntityToDTO::map).toList();
 
     }
 
     @Override
     public ProductDTO getProductById(Long id) throws Exception {
-        ProductEntity product = productRepository.findById(id).orElseThrow(()->new Exception("Product not found"));
+        ProductEntity product = productRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Product not found"));
         return productEntityToDTO.map(product);
     }
 
@@ -47,7 +48,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO updateProduct(ProductDTO dto, Long id) throws Exception {
 
-        ProductEntity product = productRepository.findById(id).orElseThrow(()->new Exception("Product not found"));
+        ProductEntity product = productRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Product not found"));
         product.setName(dto.getName());
         product.setPrice(dto.getPrice());
         product.setStock(dto.getStock());

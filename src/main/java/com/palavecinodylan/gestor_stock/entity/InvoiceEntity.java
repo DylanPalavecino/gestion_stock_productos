@@ -29,6 +29,7 @@ public class InvoiceEntity {
     private CustomerEntity customer;
 
     private LocalDate date;
+    @Enumerated(EnumType.STRING)
     private Paymethods payMethod;
     private Double finalPrice;
     public static final double IVA = 0.21;

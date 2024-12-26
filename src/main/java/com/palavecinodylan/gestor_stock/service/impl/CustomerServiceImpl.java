@@ -2,11 +2,13 @@ package com.palavecinodylan.gestor_stock.service.impl;
 
 import com.palavecinodylan.gestor_stock.dto.CustomerDTO;
 import com.palavecinodylan.gestor_stock.entity.CustomerEntity;
+import com.palavecinodylan.gestor_stock.exception.ObjectNotFoundException;
 import com.palavecinodylan.gestor_stock.mapper.CustomerEntityToDTO;
 import com.palavecinodylan.gestor_stock.repository.CustomerRepository;
 
 import com.palavecinodylan.gestor_stock.service.CustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.expression.ExpressionException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,9 +36,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getCustomer(Long customerId) {
+    public CustomerDTO getCustomer(Long customerId) throws Exception {
 
-        return customerEntityToDTO.map(customerRepository.findById(customerId).orElse(null));
+        return customerEntityToDTO.map(customerRepository.findById(customerId).orElseThrow(()-> new ObjectNotFoundException("Customer not found")));
 
     }
 
@@ -44,14 +46,14 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerDTO> getAllCustomers() {
 
         List<CustomerEntity> customers = customerRepository.findAll();
-        return customers.stream().map(customerEntityToDTO::map).collect(Collectors.toList());
+        return customers.stream().map(customerEntityToDTO::map).toList();
 
     }
 
     @Override
-    public CustomerDTO updateCustomer(Long customerId, CustomerDTO dto) {
+    public CustomerDTO updateCustomer(Long customerId, CustomerDTO dto) throws Exception {
 
-        CustomerEntity customer = customerRepository.findById(customerId).orElse(null);
+        CustomerEntity customer = customerRepository.findById(customerId).orElseThrow(()-> new ObjectNotFoundException("Customer not found"));
         customer.setFullName(dto.getFullName());
         customer.setInvoices(dto.getInvoices());
         customer.setDni(dto.getDni());

@@ -6,6 +6,7 @@ import com.palavecinodylan.gestor_stock.entity.CustomerEntity;
 import com.palavecinodylan.gestor_stock.entity.InvoiceEntity;
 import com.palavecinodylan.gestor_stock.entity.OrderEntity;
 
+import com.palavecinodylan.gestor_stock.exception.ObjectNotFoundException;
 import com.palavecinodylan.gestor_stock.mapper.InvoiceEntityToDTO;
 import com.palavecinodylan.gestor_stock.repository.CustomerRepository;
 import com.palavecinodylan.gestor_stock.repository.InvoiceRepository;
@@ -27,9 +28,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
     private final InvoiceEntityToDTO invoiceEntityToDTO;
-    @Autowired
     private OrderService orderService;
-    @Autowired
     private CustomerService customerService;
 
     @Override
@@ -65,10 +64,11 @@ public class InvoiceServiceImpl implements InvoiceService {
         return invoiceEntityToDTO.map(invoiceRepository.save(invoice));
     }
 
+
     @Override
     public InvoiceDTO getInvoiceById(Long id) throws Exception {
 
-        InvoiceEntity invoice = invoiceRepository.findById(id).orElseThrow(()-> new Exception("Invoice not found"));
+        InvoiceEntity invoice = invoiceRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Invoice not found"));
         return invoiceEntityToDTO.map(invoice);
 
     }

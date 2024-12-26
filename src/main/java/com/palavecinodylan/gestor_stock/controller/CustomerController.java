@@ -1,9 +1,8 @@
 package com.palavecinodylan.gestor_stock.controller;
-
 import com.palavecinodylan.gestor_stock.dto.CustomerDTO;
 import com.palavecinodylan.gestor_stock.service.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,16 +10,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/customer")
 @RestController
 public class CustomerController {
-    @Autowired
+
     private CustomerService customerService;
 
     @PostMapping("/create")
     public ResponseEntity<?>createCustomer(@RequestBody CustomerDTO dto) {
-        return ResponseEntity.ok(customerService.createCustomer(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerService.createCustomer(dto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?>getCustomer(@PathVariable Long id) {
+    public ResponseEntity<?>getCustomer(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok(customerService.getCustomer(id));
     }
 
@@ -30,7 +29,7 @@ public class CustomerController {
     }
 
     @PostMapping("/update/{id}")
-    public ResponseEntity<?>updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO dto) {
+    public ResponseEntity<?>updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO dto) throws Exception {
         return ResponseEntity.ok(customerService.updateCustomer(id, dto));
     }
 
