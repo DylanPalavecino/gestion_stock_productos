@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/product")
 public class ProductController {
 
+    @Autowired
     private ProductService productService;
 
     @GetMapping("/")

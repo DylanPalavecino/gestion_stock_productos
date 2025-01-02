@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
         orderEntity.setOrderItems(new ArrayList<>());
         orderEntity.setTotalPrice(0.0);
         orderRepository.save(orderEntity);
-        return "New order created";
+        return "New order created whit id: "+ orderEntity.getId();
 
     }
 

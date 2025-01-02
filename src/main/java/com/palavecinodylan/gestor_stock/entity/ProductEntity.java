@@ -1,5 +1,6 @@
 package com.palavecinodylan.gestor_stock.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.palavecinodylan.gestor_stock.models.Category;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ public class ProductEntity {
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<OrderItemEntity> orderItem;
 
 }

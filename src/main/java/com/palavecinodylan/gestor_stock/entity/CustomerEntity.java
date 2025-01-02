@@ -1,10 +1,11 @@
 package com.palavecinodylan.gestor_stock.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Builder
@@ -21,10 +22,13 @@ public class CustomerEntity {
     private Long id;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<InvoiceEntity> invoices;
 
     @JoinColumn(nullable = false)
     private String fullName;
+    @Column(unique = true)
+    @Size(min = 8, max = 10)
     private String dni;
     private String email;
     private String phone;

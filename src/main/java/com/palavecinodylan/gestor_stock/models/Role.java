@@ -24,14 +24,17 @@ public enum Role {
 
             RolePermission.CREATE_INVOICE,
             RolePermission.READ_INVOICE,
-            RolePermission.READ_ALL_INVOICES,
             RolePermission.UPDATE_INVOICE,
-            RolePermission.DELETE_INVOICE,
+
 
             RolePermission.CREATE_ORDER,
             RolePermission.READ_ORDER,
-            RolePermission.READ_ALL_ORDERS,
-            RolePermission.UPDATE_ORDER
+            RolePermission.REMOVE_ITEM,
+            RolePermission.DELETE_ORDER,
+            RolePermission.ADD_ITEM,
+
+            RolePermission.CREATE_USER
+
 
     )),
     ROLE_EMPLOYEE(Arrays.asList(
@@ -42,7 +45,6 @@ public enum Role {
 
             RolePermission.READ_PRODUCT,
             RolePermission.READ_ALL_PRODUCTS,
-            RolePermission.UPDATE_PRODUCT,
 
             RolePermission.CREATE_INVOICE,
             RolePermission.READ_INVOICE,
@@ -50,7 +52,8 @@ public enum Role {
 
             RolePermission.CREATE_ORDER,
             RolePermission.READ_ORDER,
-            RolePermission.UPDATE_ORDER
+            RolePermission.REMOVE_ITEM,
+            RolePermission.ADD_ITEM
 
     ));
 

@@ -1,11 +1,11 @@
 package com.palavecinodylan.gestor_stock.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.palavecinodylan.gestor_stock.models.Paymethods;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Builder
 @AllArgsConstructor
@@ -22,10 +22,12 @@ public class InvoiceEntity {
 
     @OneToOne
     @JoinColumn(name = "order_id", unique = true)
+    @JsonManagedReference
     private OrderEntity order;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
+    @JsonManagedReference
     private CustomerEntity customer;
 
     private LocalDate date;

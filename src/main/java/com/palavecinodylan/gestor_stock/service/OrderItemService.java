@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface OrderItemService {
 
-    public OrderItemDTO newItem(OrderItemRequest orderItemRequest) throws Exception;
+    public OrderItemDTO addItem(OrderItemRequest orderItemRequest) throws Exception;
     public OrderItemEntity getItemEntity(Long id) throws Exception;
-    public List<OrderItemDTO> getAllItemsInOrder(Long orderId) throws Exception;
+
 }

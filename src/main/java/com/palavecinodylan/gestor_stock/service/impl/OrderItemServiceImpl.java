@@ -30,11 +30,15 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Transactional
     @Override
-    public OrderItemDTO newItem(OrderItemRequest orderItemRequest) throws Exception {
+    public OrderItemDTO addItem(OrderItemRequest orderItemRequest) throws Exception {
 
         ProductEntity product = productService.getProductEntityById(orderItemRequest.productId());
         OrderEntity order = orderService.getOrderEntityById(orderItemRequest.orderId());
         Double subtotal = product.getPrice() * orderItemRequest.quantity();
+
+        if (orderItemRequest.quantity() > product.getStock()) {
+            throw new ObjectNotFoundException("Not enough stock");
+        }
 
         OrderItemEntity orderItem = OrderItemEntity.builder()
                 .quantity(orderItemRequest.quantity())
@@ -45,6 +49,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 
         order.getOrderItems().add(orderItem);
         order.setTotalPrice(order.getTotalPrice() + subtotal);
+        product.setStock(product.getStock() - orderItemRequest.quantity());
         orderRepository.save(order);
         return orderItemEntityToDTO.map(orderItem);
 
@@ -55,13 +60,6 @@ public class OrderItemServiceImpl implements OrderItemService {
         return orderItemRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("OrderItem not found"));
     }
 
-    @Override
-    public List<OrderItemDTO> getAllItemsInOrder(Long orderId) throws Exception {
-
-        OrderEntity order = orderService.getOrderEntityById(orderId);
-        return order.getOrderItems().stream().map(orderItemEntityToDTO::map).toList();
-
-    }
 
 
 }

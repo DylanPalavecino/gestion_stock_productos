@@ -11,7 +11,6 @@ public class OrderItemEntityToDTO implements IMapper<OrderItemEntity, OrderItemD
     @Override
     public OrderItemDTO map(OrderItemEntity input) {
         OrderItemDTO dto = new OrderItemDTO();
-        dto.setOrder(input.getOrder());
         dto.setQuantity(input.getQuantity());
         dto.setProduct(input.getProduct());
         dto.setSubTotal(input.getSubTotal());

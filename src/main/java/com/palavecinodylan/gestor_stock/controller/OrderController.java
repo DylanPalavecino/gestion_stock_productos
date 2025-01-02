@@ -14,17 +14,17 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping("/empty_order")
+    @PostMapping("/empty-order")
     public ResponseEntity<?> createEmptyOrder() {
         return ResponseEntity.ok(orderService.newEmptyOrder());
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getOrderById(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok(orderService.getOrderById(id));
     }
 
-    @DeleteMapping("/remove_item/{orderId}/{itemId}")
+    @PostMapping("/remove-item/{orderId}/{itemId}")
     public ResponseEntity<?> deleteItemFromOrder(@PathVariable Long orderId,@PathVariable Long itemId) throws Exception {
         orderService.deleteItemFromOrder(orderId, itemId);
         return ResponseEntity.ok().build();

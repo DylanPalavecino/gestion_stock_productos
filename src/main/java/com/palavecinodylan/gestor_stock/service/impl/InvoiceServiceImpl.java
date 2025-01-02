@@ -28,7 +28,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
     private final InvoiceEntityToDTO invoiceEntityToDTO;
+    @Autowired
     private OrderService orderService;
+    @Autowired
     private CustomerService customerService;
 
     @Override
@@ -66,10 +68,12 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 
     @Override
-    public InvoiceDTO getInvoiceById(Long id) throws Exception {
+    public InvoiceDTO getInvoice(Long id) throws Exception {
 
-        InvoiceEntity invoice = invoiceRepository.findById(id).orElseThrow(()-> new ObjectNotFoundException("Invoice not found"));
+        InvoiceEntity invoice = invoiceRepository.findInvoiceWithDetailsById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Invoice not found"));
+
         return invoiceEntityToDTO.map(invoice);
-
     }
+
 }

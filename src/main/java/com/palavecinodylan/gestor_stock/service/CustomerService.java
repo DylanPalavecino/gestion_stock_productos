@@ -14,7 +14,7 @@ public interface CustomerService {
     public CustomerDTO getCustomer(Long customerId) throws Exception;
     public List<CustomerDTO> getAllCustomers();
     public CustomerDTO updateCustomer(Long customerId, CustomerDTO dto) throws Exception;
-    public void deleteCustomer(Long customerId);
+    public String deleteCustomer(Long customerId);
 
     public CustomerEntity getCustomerEntityById(Long id);
 

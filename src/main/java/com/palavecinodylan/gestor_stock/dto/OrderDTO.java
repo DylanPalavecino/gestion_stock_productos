@@ -1,9 +1,6 @@
 package com.palavecinodylan.gestor_stock.dto;
 
-import com.palavecinodylan.gestor_stock.entity.CustomerEntity;
 import com.palavecinodylan.gestor_stock.entity.OrderItemEntity;
-import com.palavecinodylan.gestor_stock.entity.ProductEntity;
-import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.List;

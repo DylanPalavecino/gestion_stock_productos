@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 public interface InvoiceService {
 
     public InvoiceDTO createInvoice(InvoiceRequest invoiceRequest) throws Exception;
-    public InvoiceDTO getInvoiceById(Long id) throws Exception;
+    public InvoiceDTO getInvoice(Long id) throws Exception;
 
 }

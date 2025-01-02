@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/item")
 public class OrderItemController {
 
+    @Autowired
     private OrderItemService orderItemService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> newItem(@RequestBody OrderItemRequest orderItemRequest) throws Exception {
-        return ResponseEntity.ok(orderItemService.newItem(orderItemRequest));
+    public ResponseEntity<?> addItem(@RequestBody OrderItemRequest orderItemRequest) throws Exception {
+        return ResponseEntity.ok(orderItemService.addItem(orderItemRequest));
     }
 
     @GetMapping("/get/{id}")

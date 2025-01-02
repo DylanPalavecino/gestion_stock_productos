@@ -8,10 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 
-
-@NoArgsConstructor
 @RequiredArgsConstructor
 @Getter
 @Setter
@@ -21,6 +18,8 @@ public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    @Column(unique = true)
     private String username;
     private String password;
     @Enumerated(EnumType.STRING)

@@ -16,17 +16,16 @@ public enum RolePermission {
 
     CREATE_ORDER,
     READ_ORDER,
-    READ_ALL_ORDERS,
-    UPDATE_ORDER,
+    REMOVE_ITEM,
+    ADD_ITEM,
+    READ_ITEM,
     DELETE_ORDER,
 
     CREATE_INVOICE,
     UPDATE_INVOICE,
-    DELETE_INVOICE,
     READ_INVOICE,
-    READ_ALL_INVOICES;
 
-
+    CREATE_USER;
 
 
 
