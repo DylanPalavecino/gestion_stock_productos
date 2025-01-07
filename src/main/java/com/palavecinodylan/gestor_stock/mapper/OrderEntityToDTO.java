@@ -1,13 +1,11 @@
 package com.palavecinodylan.gestor_stock.mapper;
 
-import com.palavecinodylan.gestor_stock.dto.OrderDTO;
-import com.palavecinodylan.gestor_stock.entity.OrderEntity;
+import com.palavecinodylan.gestor_stock.order.dto.OrderDTO;
+import com.palavecinodylan.gestor_stock.order.entity.OrderEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class OrderEntityToDTO implements IMapper<OrderEntity, OrderDTO> {
-
-
     @Override
     public OrderDTO map(OrderEntity input) {
         OrderDTO dto = new OrderDTO();

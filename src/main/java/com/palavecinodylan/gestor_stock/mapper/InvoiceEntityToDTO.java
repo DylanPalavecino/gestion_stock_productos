@@ -1,14 +1,12 @@
 package com.palavecinodylan.gestor_stock.mapper;
 
 
-import com.palavecinodylan.gestor_stock.dto.InvoiceDTO;
-import com.palavecinodylan.gestor_stock.entity.InvoiceEntity;
+import com.palavecinodylan.gestor_stock.invoice.dto.InvoiceDTO;
+import com.palavecinodylan.gestor_stock.invoice.entity.InvoiceEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class InvoiceEntityToDTO implements IMapper<InvoiceEntity, InvoiceDTO> {
-
-
     @Override
     public InvoiceDTO map(InvoiceEntity input) {
         InvoiceDTO dto = new InvoiceDTO();
@@ -18,7 +16,6 @@ public class InvoiceEntityToDTO implements IMapper<InvoiceEntity, InvoiceDTO> {
         dto.setDate(input.getDate());
         dto.setPayMethod(input.getPayMethod());
         dto.setFinalPrice(input.getFinalPrice());
-
         return dto;
     }
 }
