@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UserService {
 
 
-    UserEntity registerOneEmployee(SaveUser newUser);
+
     Optional<UserEntity> findUserByUsername(String username);
 
 }

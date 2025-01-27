@@ -23,7 +23,6 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO createCustomer(CustomerDTO dto) {
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setFullName(dto.getFullName());
-        customerEntity.setInvoices(dto.getInvoices());
         customerEntity.setDni(dto.getDni());
         customerEntity.setPhone(dto.getPhone());
         customerEntity.setEmail(dto.getEmail());
@@ -42,7 +41,6 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO updateCustomer(Long customerId, CustomerDTO dto) throws Exception {
         CustomerEntity customer = customerRepository.findById(customerId).orElseThrow(()-> new ObjectNotFoundException("Customer not found"));
         customer.setFullName(dto.getFullName());
-        customer.setInvoices(dto.getInvoices());
         customer.setDni(dto.getDni());
         customer.setPhone(dto.getPhone());
         customer.setEmail(dto.getEmail());

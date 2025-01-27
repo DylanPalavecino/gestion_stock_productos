@@ -12,5 +12,4 @@ public class CustomerDTO {
     private String dni;
     private String email;
     private String phone;
-    private List<InvoiceEntity> invoices;
 }

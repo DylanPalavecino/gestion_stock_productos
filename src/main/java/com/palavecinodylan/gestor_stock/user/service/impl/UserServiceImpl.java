@@ -8,7 +8,6 @@ import com.palavecinodylan.gestor_stock.user.repository.UserRepository;
 import com.palavecinodylan.gestor_stock.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -20,23 +19,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Override
-    public UserEntity registerOneEmployee(SaveUser newUser) {
-
-        validatePassword(newUser);
-
-        UserEntity user = new UserEntity();
-        user.setUsername(newUser.getUsername());
-        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        user.setName(newUser.getName());
-        user.setRole(Role.ROLE_EMPLOYEE);
-
-        return userRepository.save(user);
-
-    }
 
     @Override
     public Optional<UserEntity> findUserByUsername(String username) {
